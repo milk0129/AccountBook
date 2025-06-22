@@ -1,61 +1,36 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="proJSP.UserDAO" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>로그인</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/JspPro/Remake/css/loginstyle.css">
+</head>
+<body>
+<jsp:include page="../mainJsp/mainTop.jsp" />
 
-<%
-    request.setCharacterEncoding("UTF-8");
+<div id="userWrapper">
+    <header><h2>로그인</h2></header>
+    <main>
+        <form method="post" action="${pageContext.request.contextPath}/login">
+            <label for="userId">아이디</label>
+            <input type="text" name="userId" id="userId" required>
 
-    String userId = request.getParameter("loginUserId");
-    String resultMsg = "";
-
-    if (userId != null) {
-        userId = userId.trim();
-
-        if (!userId.isEmpty()) {
-            UserDAO dao = new UserDAO();
-            boolean exists = dao.isUserExists(userId);
-
-            if (exists) {
-                String userName = dao.getUserName(userId);
-
-                session.setAttribute("userId", userId);
-                session.setAttribute("userName", userName);
-
-                // 수정 포인트: iframe 안이 아니라 전체 창 이동
-%>
-                <script>
-                    window.top.location.href = '../mainJsp/login_index.jsp';
-                </script>
-<%
-                return; 
-            } else {
-                resultMsg = "존재하지 않는 아이디입니다.";
-            }
-        } else {
-            resultMsg = "아이디를 입력해주세요.";
-        }
-    }
-%>
-
-    <link rel="stylesheet" href="../css/loginstyle.css">
-<div id = "userWrapper">
-<main>
-    <header>
-        <h2>로그인</h2>
-	<script src="../jas/theme.js"></script>
-    </header>
-
-    <section>
-        <form method="post" action="index.jsp?category=login">
-            <input type="text" id="loginUserId" name="loginUserId" placeholder="아이디" required
-                   value="<%= userId != null ? userId : "" %>">
             <button type="submit">로그인</button>
-        </form>
-        <p id="resultMsg"><%= resultMsg %></p>
-    </section>
 
-    <footer>
-        <p>아이디를 잊으셨나요? <a href="index.jsp?category=find-id">아이디 찾기</a></p>
-        <p>아직 회원이 아니신가요? <a href="index.jsp?category=signUp">회원가입</a></p>
-    </footer>
-</main>
+            <nav>
+                <a href="${pageContext.request.contextPath}/user?action=signupForm">회원가입</a> |
+                <a href="${pageContext.request.contextPath}/user?action=findIdForm">아이디 찾기</a>
+            </nav>
+        </form>
+
+        <c:if test="${not empty error}">
+            <p style="color:red">${error}</p>
+        </c:if>
+    </main>
 </div>
+
+<jsp:include page="../mainJsp/mainBottom.jsp" />
+</body>
+
+</html>

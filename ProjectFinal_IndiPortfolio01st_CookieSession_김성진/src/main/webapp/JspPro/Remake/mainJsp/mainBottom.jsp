@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="./../css/mainMenu.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/JspPro/Remake/css/mainMenu.css">
     <!-- 메인 하단 copyright 부분 -->
     <div id = "footerWrapper">
     <div class="footer">

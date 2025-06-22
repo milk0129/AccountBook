@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="./../css/outline.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/JspPro/Remake/css/outline.css">
 <script src="../jas/theme.js"></script>
 <div id = "outlineWrapper">
 <main>
